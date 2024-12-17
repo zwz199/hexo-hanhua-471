@@ -66,6 +66,8 @@ const ExternalPlugin = props => {
   // 默认关闭NProgress
   const ENABLE_NPROGRSS = siteConfig('ENABLE_NPROGRSS', false)
   const COZE_BOT_ID = siteConfig('COZE_BOT_ID')
+  const CRISP_WEBSITE_ID = siteConfig('CRISP_WEBSITE_ID')
+
 
   // 自定义样式css和js引入
   if (isBrowser) {
@@ -74,6 +76,12 @@ const ExternalPlugin = props => {
     loadExternalResource('/css/custom.css', 'css')
     loadExternalResource('/js/custom.js', 'js')
 
+    // 导入外部自定义脚本
+    if (CRISP_WEBSITE_ID) {
+       window.$crisp=[];
+       window.CRISP_WEBSITE_ID=CRISP_WEBSITE_ID;
+      loadExternalResource("https://client.crisp.chat/l.js", 'js')
+    }
     // 自动添加图片阴影
     if (IMG_SHADOW) {
       loadExternalResource('/css/img-shadow.css', 'css')
